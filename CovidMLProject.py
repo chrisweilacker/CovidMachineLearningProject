@@ -59,4 +59,9 @@ corr = df[['Covid-19 Mortality Ratio', 'Perc65Over', 'Obesity']].corr()
 # depending on what the ML algorithm can do.
 corr.style.background_gradient(cmap='coolwarm')
 
+# We might need to create a categorical column for mortality whether it is high risk or low risk
+# and see if an ML algorithm such as KNN can use the obesity and Over 65 Population to 
+# categorize the data would be more accurate.
+df['HighRisk'] = zscore(df['Covid-19 Mortality Ratio']) > 0
+
 
