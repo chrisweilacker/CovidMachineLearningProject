@@ -8,6 +8,7 @@ Created on Mon Feb 15 14:48:39 2021
 import numpy as np
 import pandas as pd
 from matplotlib import rcParams
+from matplotlib import pyplot as plt 
 import seaborn as sns
 from scipy.stats import zscore
 
@@ -43,6 +44,10 @@ df.rename(columns={'Mortality Ratio': 'Covid-19 Mortality Ratio'}, inplace=True)
 # Convert Obesity data to float
 df['Obesity'] = pd.to_numeric(df['Obesity'], downcast="float")
 
+#Drop the outlier Yemen which has an 8.75 Std Deviation on its Covied 19 mortality
+df.drop(df.loc[df['Country']=='Yemen'].index,inplace=True)
+
+
 # Get the Pop 65 and Over and Tot Pop Data to Calculate Percent 65 and Over
 df = df.merge(demoDF[['Country', 'Value']][(demoDF['Time']==2017) & (demoDF['Indicator']=='Population aged 65 years or older ')], how='inner') #Copy in the 65 and Over Data
 df.rename(columns={'Value': 'Pop65Over'}, inplace=True)
@@ -62,6 +67,9 @@ corr.style.background_gradient(cmap='coolwarm')
 # We might need to create a categorical column for mortality whether it is high risk or low risk
 # and see if an ML algorithm such as KNN can use the obesity and Over 65 Population to 
 # categorize the data would be more accurate.
-df['HighRisk'] = zscore(df['Covid-19 Mortality Ratio']) > 0
+df['HighRisk'] = zscore(df['Covid-19 Mortality Ratio']) > 1
+df['NormCovid19Mortality'] = zscore(df['Covid-19 Mortality Ratio'])
 
-
+#Some visualizations of the Data so far.
+df.plot.scatter(x='Perc65Over', y='Obesity', c='NormCovid19Mortality', colormap='viridis')
+plt.xlabel('Perc65Over')
