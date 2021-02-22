@@ -12,6 +12,8 @@ import seaborn as sns
 from scipy.stats import zscore
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
+
 
 # allow output to span multiple output lines in the console
 pd.set_option('display.max_columns', 500)
@@ -106,3 +108,36 @@ X_train_raw, X_test_raw, y_train, y_test = train_test_split(X, y, test_size=0.30
 # scaled version
 X_train = scaler.fit_transform(X_train_raw)
 X_test = scaler.transform(X_test_raw)
+print('First 10 Rows of Scaled Data: \n\n', X_train[0:10:,], '\n')
+
+knn = KNeighborsClassifier()
+knn.fit(X_train, y_train)
+predictions = knn.predict(X_test)
+accuracy = (predictions == y_test).mean()
+print('Accuracy:', round(accuracy * 100, 2), '%')
+
+n = 30
+accuracies = []
+ks = np.arange(1, n+1, 2)
+for k in ks:
+    print(k, ' ', end='')
+    knn = KNeighborsClassifier(n_neighbors=k)
+    knn.fit(X_train, y_train)
+    predictions = knn.predict(X_test)
+    acc = (predictions == y_test).mean()
+    accuracies.append(acc)
+print('done')
+
+def get_best(ks, accuracies):
+    maximum = np.array(accuracies).max()
+    indexMax = np.where(accuracies == maximum)
+    return ks[indexMax], maximum
+
+best_k, best_acc = get_best(ks, accuracies)
+print('best k = {}, best accuracy: {:0.3f}%'.format(best_k, best_acc * 100))
+
+print('Comparison of predictions to y_test values: \n\n', predictions == y_test)
+print('Y_test values:\n\n', y_test)
+
+#Get the One World in Data Dataset
+onwidDF = pd.read_csv('https://raw.githubusercontent.com/chrisweilacker/CovidMachineLearningProject/master/owid-covid-latest.csv', index_col=0)
