@@ -141,6 +141,7 @@ print('Y_test values:\n\n', y_test)
 
 #Get the One World in Data Dataset
 owidDF = pd.read_csv('https://raw.githubusercontent.com/chrisweilacker/CovidMachineLearningProject/master/owid-covid-latest.csv', index_col=0)
-owidDF.rename(columns={'Location': 'Country'}, inplace=True)
-df = df.merge(owidDF[['Country', 'total_deaths', 'total_deaths_per_million', 'cardiovasc_death_rate', 'diabetes_prevalence', 'human_development_index', 'population_density', 'aged_65_older', 'aged_70_older', 'total_tests_per_thousand']][(demoDF['Time']==2017) & (demoDF['Indicator']=='Population aged 65 years or older ')], how='inner') #Copy in the 65 and Over Data
+owidDF.rename(columns={'location': 'Country'}, inplace=True)
+df = df.merge(owidDF[['Country', 'total_deaths', 'total_deaths_per_million', 'cardiovasc_death_rate', 'diabetes_prevalence', 'human_development_index', 'population_density', 'aged_70_older', 'total_tests_per_thousand']], how='inner')
+df.info() 
 
