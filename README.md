@@ -1,4 +1,9 @@
 # CovidMachineLearningProject
+
+## Deliverables
+[ipynb file](CovidMLProject.ipynb)
+[Report (PDF)](cst383_project_report.pdf)
+
 ## Introduction
 
 ### Why was the project undertaken?
