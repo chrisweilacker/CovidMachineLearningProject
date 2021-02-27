@@ -4,7 +4,7 @@
 
 * [ipynb file](CovidMLProject.ipynb)
 * [Report (PDF)](cst383_project_report.pdf)
-* [Presentation Video] (https://youtu.be/5HwovKdEWQs)
+* [Presentation Video](https://youtu.be/5HwovKdEWQs)
 
 ## Introduction
 
