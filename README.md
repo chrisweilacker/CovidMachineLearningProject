@@ -1,5 +1,7 @@
 # CovidMachineLearningProject
 
+### by OJ Alcaraz, Chris Weilacker, Kirk Kosinski, and Patrick Cao
+
 ## Deliverables
 
 * [ipynb file](CovidMLProject.ipynb)
